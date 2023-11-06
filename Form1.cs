@@ -32,7 +32,7 @@ namespace PONG3
             public int x, y;
             public int lunghezza, larghezza;
             public int v;
-            public tasti t;
+            public tasti? t;
         }
         public Form1()
         {
@@ -231,8 +231,7 @@ namespace PONG3
             int x = pictureBoxCampo.Width / 2;
 
             for (int y = 0; y < pictureBoxCampo.Height; y++)
-            {
-
+            {                
                 immagine.SetPixel(x, y,
                     (y / 20) % 2 == 0 ? Color.Black : Color.White);
             }
@@ -290,7 +289,7 @@ namespace PONG3
                     punteggioA++;
                     int newPadella = rnd.Next(0, nA - 1);
                     p.x = listPadelle[newPadella].x + listPadelle[newPadella].larghezza;
-                    p.y = listPadelle[newPadella].y + listPadelle[newPadella].lunghezza / 2;
+                    p.y = listPadelle[newPadella].y + listPadelle[newPadella].lunghezza / 2; 
                     p.xDir = rnd.Next(-5, 5);
                     p.yDir = rnd.Next(-5, 5);
                 }
@@ -375,6 +374,6 @@ namespace PONG3
 
         }
 
-
+        
     }
 }
