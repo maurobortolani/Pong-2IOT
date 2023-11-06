@@ -60,7 +60,6 @@ namespace PONG3
         }
         private void drawPadella(padella p, Color c)
         {
-
             for (int h = 0; h < p.lunghezza; h++)
             {
                 for (int w = -p.larghezza / 2; w < p.larghezza / 2; w++)
@@ -69,7 +68,6 @@ namespace PONG3
                     immagine.SetPixel(z.x + w, z.y + h, c);
                 }
             }
-
             pictureBoxCampo.Image = immagine;
         }
 
