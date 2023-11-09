@@ -154,19 +154,14 @@ namespace PONG3
             if (n > 0)
             {
                 for (int i = 0; i < n; i++)
-                {
-                    int yDirTemp;
-                    do
-                        yDirTemp = rnd.Next(-5, 5);
-                    while (yDirTemp == 0);
-
+                {                
                     listBall.Add(new pallina
                     {
                         colore = Color.Black,
                         x = rnd.Next(10, pictureBoxCampo.Width - 1),
                         y = rnd.Next(10, pictureBoxCampo.Height - 1),
-                        xDir = rnd.Next(-5, 5),
-                        yDir = yDirTemp,
+                        xDir = generaDirezioneCasuale(),
+                        yDir = generaDirezioneCasuale(),
                         dim = 7,//rnd.Next(1, 10),
                         v = rnd.Next(1, 2)
                     });
@@ -251,10 +246,8 @@ namespace PONG3
                     )
                 {
                     int d = (padella.x + (padella.lunghezza / 2) - p.x) / 10;
-
-                    p.xDir = p.xDir > 0 ? -d : d;
-
-                    //p.xDir *= (-1);
+                    if (d == 0) d = 1;
+                    p.xDir = p.xDir > 0 ? -d : d;                    
                 }
             }
             return p;
@@ -279,19 +272,19 @@ namespace PONG3
                     int newPadella = rnd.Next(0, nB - 1);
                     p.x = listPadelle[nA + newPadella].x - listPadelle[nA + newPadella].larghezza;
                     p.y = listPadelle[nA + newPadella].y + listPadelle[nA + newPadella].lunghezza / 2;
-                    p.xDir = rnd.Next(-5, 5);
-                    p.yDir = rnd.Next(-5, 5);
+                    p.xDir = generaDirezioneCasuale();
+                    p.yDir = generaDirezioneCasuale();
                 }
                 else
                 {
                     punteggioA++;
                     int newPadella = rnd.Next(0, nA - 1);
                     p.x = listPadelle[newPadella].x + listPadelle[newPadella].larghezza;
-                    p.y = listPadelle[newPadella].y + listPadelle[newPadella].lunghezza / 2; 
-                    p.xDir = rnd.Next(-5, 5);
-                    p.yDir = rnd.Next(-5, 5);
+                    p.y = listPadelle[newPadella].y + listPadelle[newPadella].lunghezza / 2;
+                    p.xDir = generaDirezioneCasuale();
+                    p.yDir = generaDirezioneCasuale();
                 }
-                changeRun();
+                //changeRun();
             }
 
             if (p.y <= p.dim / 2 || p.y >= pictureBoxCampo.Height - 1 - (p.dim / 2))
@@ -300,6 +293,17 @@ namespace PONG3
             }
 
             return p;
+        }
+
+        private int generaDirezioneCasuale()
+        {
+            Random rnd = new Random();
+            int z;
+            do
+                z = rnd.Next(-5, 5);
+            while (z == 0);
+
+            return z;
         }
 
         private void buttonGenerate_Click(object sender, EventArgs e)
